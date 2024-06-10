@@ -8,92 +8,180 @@
 
 export interface Config {
   collections: {
-    users: User
-    tenants: Tenant
-    pages: Page
-    'payload-preferences': PayloadPreference
-    'payload-migrations': PayloadMigration
-  }
-  globals: {}
+    users: User;
+    tenants: Tenant;
+    pages: Page;
+    posts: Post;
+    categories: Category;
+    media: Media;
+    projects: Project;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  globals: {
+    settings: Settings;
+    header: Header;
+    footer: Footer;
+  };
 }
 export interface User {
-  id: string
-  firstName?: string
-  lastName?: string
-  roles: ('super-admin' | 'user')[]
-  tenants?: {
-    tenant: string | Tenant
-    roles: ('admin' | 'user')[]
-    id?: string
-  }[]
-  lastLoggedInTenant?: string | Tenant
-  updatedAt: string
-  createdAt: string
-  email: string
-  resetPasswordToken?: string
-  resetPasswordExpiration?: string
-  salt?: string
-  hash?: string
-  loginAttempts?: number
-  lockUntil?: string
-  password?: string
+  id: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  roles: ('super-admin' | 'user')[];
+  tenants?:
+    | {
+        tenant: string | Tenant;
+        roles: ('admin' | 'user')[];
+        id?: string | null;
+      }[]
+    | null;
+  lastLoggedInTenant?: (string | null) | Tenant;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
 }
 export interface Tenant {
-  id: string
-  name: string
-  domains?: {
-    domain: string
-    id?: string
-  }[]
-  updatedAt: string
-  createdAt: string
+  id: string;
+  name: string;
+  domains?:
+    | {
+        domain: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Page {
-  id: string
-  title: string
-  slug?: string
-  tenant?: string | Tenant
+  id: string;
+  title: string;
+  slug?: string | null;
+  tenant?: (string | null) | Tenant;
   richText: {
-    [k: string]: unknown
-  }[]
-  updatedAt: string
-  createdAt: string
+    [k: string]: unknown;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Post {
+  id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+export interface Category {
+  id: string;
+  title?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Media {
+  id: string;
+  alt: string;
+  caption?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+export interface Project {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 export interface PayloadPreference {
-  id: string
+  id: string;
   user: {
-    relationTo: 'users'
-    value: string | User
-  }
-  key?: string
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
   value?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface PayloadMigration {
-  id: string
-  name?: string
-  batch?: number
-  updatedAt: string
-  createdAt: string
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Settings {
+  id: string;
+  postsPage?: (string | null) | Page;
+  projectsPage?: (string | null) | Page;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+export interface Header {
+  id: string;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+export interface Footer {
+  id: string;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 
+
 declare module 'payload' {
-  export interface GeneratedTypes {
-    collections: {
-      users: User
-      tenants: Tenant
-      pages: Page
-      'payload-preferences': PayloadPreference
-      'payload-migrations': PayloadMigration
-    }
-  }
+  export interface GeneratedTypes extends Config {}
 }

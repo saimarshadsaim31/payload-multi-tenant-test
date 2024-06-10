@@ -13,9 +13,17 @@ import { buildConfig } from 'payload/config'
 import { Pages } from './collections/Pages'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
+import { Posts } from './collections/Posts'
+import Categories from './collections/Categories'
+import { Media } from './collections/Media'
+import { Projects } from './collections/Projects'
+import { Settings } from './globals/Settings'
+import { Header } from './globals/Header'
+import { Footer } from './globals/Footer'
 
 export default buildConfig({
-  collections: [Users, Tenants, Pages],
+  collections: [Users, Tenants, Pages, Posts, Categories, Media, Projects],
+  globals: [Settings, Header, Footer],
   admin: {
     bundler: webpackBundler(),
     webpack: config => ({
