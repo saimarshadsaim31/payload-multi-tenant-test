@@ -45,122 +45,6 @@ export const Posts: CollectionConfig = {
     create: anyone,
     delete: anyone,
   },
-  // fields: [
-  //   {
-  //     name: 'title',
-  //     type: 'text',
-  //     required: true,
-  //   },
-  //   {
-  //     name: 'categories',
-  //     type: 'relationship',
-  //     relationTo: 'categories',
-  //     hasMany: true,
-  //     admin: {
-  //       position: 'sidebar',
-  //     },
-  //   },
-  //   {
-  //     name: 'publishedAt',
-  //     type: 'date',
-  //     admin: {
-  //       position: 'sidebar',
-  //       date: {
-  //         pickerAppearance: 'dayAndTime',
-  //       },
-  //     },
-  //     hooks: {
-  //       beforeChange: [
-  //         ({ siblingData, value }) => {
-  //           if (siblingData._status === 'published' && !value) {
-  //             return new Date()
-  //           }
-  //           return value
-  //         },
-  //       ],
-  //     },
-  //   },
-  //   {
-  //     name: 'authors',
-  //     type: 'relationship',
-  //     relationTo: 'users',
-  //     hasMany: true,
-  //     admin: {
-  //       position: 'sidebar',
-  //     },
-  //   },
-  //   // This field is only used to populate the user data via the `populateAuthors` hook
-  //   // This is because the `user` collection has access control locked to protect user privacy
-  //   // GraphQL will also not return mutated user data that differs from the underlying schema
-  //   {
-  //     name: 'populatedAuthors',
-  //     type: 'array',
-  //     admin: {
-  //       readOnly: true,
-  //       disabled: true,
-  //     },
-  //     access: {
-  //       update: () => false,
-  //     },
-  //     fields: [
-  //       {
-  //         name: 'id',
-  //         type: 'text',
-  //       },
-  //       {
-  //         name: 'name',
-  //         type: 'text',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     type: 'tabs',
-  //     tabs: [
-  //       {
-  //         label: 'Hero',
-  //         fields: [hero],
-  //       },
-  //       {
-  //         label: 'Content',
-  //         fields: [
-  //           {
-  //             name: 'layout',
-  //             type: 'blocks',
-  //             required: true,
-  //             blocks: [CallToAction, Content, MediaBlock, Archive],
-  //           },
-  //           {
-  //             name: 'enablePremiumContent',
-  //             label: 'Enable Premium Content',
-  //             type: 'checkbox',
-  //           },
-  //           {
-  //             name: 'premiumContent',
-  //             type: 'blocks',
-  //             access: {
-  //               read: ({ req }) => req.user,
-  //             },
-  //             blocks: [CallToAction, Content, MediaBlock, Archive],
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: 'relatedPosts',
-  //     type: 'relationship',
-  //     relationTo: 'posts',
-  //     hasMany: true,
-  //     filterOptions: ({ id }) => {
-  //       return {
-  //         id: {
-  //           not_in: [id],
-  //         },
-  //       }
-  //     },
-  //   },
-  //   slugField(),
-  // ],
   fields: [
     {
       name: 'title',
@@ -195,6 +79,86 @@ export const Posts: CollectionConfig = {
           },
         ],
       },
-    }
-  ]
+    },
+    {
+      name: 'authors',
+      type: 'relationship',
+      relationTo: 'users',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    // This field is only used to populate the user data via the `populateAuthors` hook
+    // This is because the `user` collection has access control locked to protect user privacy
+    // GraphQL will also not return mutated user data that differs from the underlying schema
+    {
+      name: 'populatedAuthors',
+      type: 'array',
+      admin: {
+        readOnly: true,
+        disabled: true,
+      },
+      access: {
+        update: () => false,
+      },
+      fields: [
+        {
+          name: 'id',
+          type: 'text',
+        },
+        {
+          name: 'name',
+          type: 'text',
+        },
+      ],
+    },
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Hero',
+          fields: [hero],
+        },
+        {
+          label: 'Content',
+          fields: [
+            {
+              name: 'layout',
+              type: 'blocks',
+              required: true,
+              blocks: [CallToAction, Content, MediaBlock, Archive],
+            },
+            {
+              name: 'enablePremiumContent',
+              label: 'Enable Premium Content',
+              type: 'checkbox',
+            },
+            {
+              name: 'premiumContent',
+              type: 'blocks',
+              access: {
+                read: ({ req }) => req.user,
+              },
+              blocks: [CallToAction, Content, MediaBlock, Archive],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'relatedPosts',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: true,
+      filterOptions: ({ id }) => {
+        return {
+          id: {
+            not_in: [id],
+          },
+        }
+      },
+    },
+    slugField(),
+  ],
 }

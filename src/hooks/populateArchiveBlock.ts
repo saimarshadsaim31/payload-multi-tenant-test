@@ -11,7 +11,6 @@ export const populateArchiveBlock: AfterReadHook = async ({ doc, context, req })
   // const adminOrPublishedResult = await adminsOrPublished({ req: req })
   const adminOrPublishedResult = await anyone({ req: req })
   const adminOrPublishedQuery = adminOrPublishedResult
-
   const layoutWithArchive = await Promise.all(
     doc.layout.map(async block => {
       if (block.blockType === 'archive') {

@@ -44,62 +44,61 @@ export const Projects: CollectionConfig = {
     create: anyone,
     delete: anyone,
   },
-  // fields: [
-  //   {
-  //     name: 'title',
-  //     type: 'text',
-  //     required: true,
-  //   },
-  //   {
-  //     name: 'categories',
-  //     type: 'relationship',
-  //     relationTo: 'categories',
-  //     hasMany: true,
-  //     admin: {
-  //       position: 'sidebar',
-  //     },
-  //   },
-  //   {
-  //     name: 'publishedAt',
-  //     type: 'date',
-  //     admin: {
-  //       position: 'sidebar',
-  //     },
-  //   },
-  //   {
-  //     type: 'tabs',
-  //     tabs: [
-  //       {
-  //         label: 'Hero',
-  //         fields: [hero],
-  //       },
-  //       {
-  //         label: 'Content',
-  //         fields: [
-  //           {
-  //             name: 'layout',
-  //             type: 'blocks',
-  //             required: true,
-  //             blocks: [CallToAction, Content, MediaBlock, Archive],
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: 'relatedProjects',
-  //     type: 'relationship',
-  //     relationTo: 'projects',
-  //     hasMany: true,
-  //     filterOptions: ({ id }) => {
-  //       return {
-  //         id: {
-  //           not_in: [id],
-  //         },
-  //       }
-  //     },
-  //   },
-  //   slugField(),
-  // ],
-  fields: []
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'publishedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Hero',
+          fields: [hero],
+        },
+        {
+          label: 'Content',
+          fields: [
+            {
+              name: 'layout',
+              type: 'blocks',
+              required: true,
+              blocks: [CallToAction, Content, MediaBlock, Archive],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'relatedProjects',
+      type: 'relationship',
+      relationTo: 'projects',
+      hasMany: true,
+      filterOptions: ({ id }) => {
+        return {
+          id: {
+            not_in: [id],
+          },
+        }
+      },
+    },
+    slugField(),
+  ],
 }
