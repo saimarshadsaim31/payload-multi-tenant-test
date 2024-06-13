@@ -7,6 +7,7 @@ dotenv.config({
 
 import express from 'express'
 import payload from 'payload'
+import email from './email/transport'
 
 import { seed } from './seed'
 
@@ -20,6 +21,7 @@ const start = async (): Promise<void> => {
   await payload.init({
     secret: process.env.PAYLOAD_SECRET,
     express: app,
+    email,
     onInit: () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
     },

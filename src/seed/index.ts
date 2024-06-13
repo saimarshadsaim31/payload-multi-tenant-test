@@ -90,30 +90,153 @@ export const seed = async (payload: Payload): Promise<void> => {
   ])
 
   // create tenant-scoped pages
-  await Promise.all([
-    await payload.create({
-      collection: 'pages',
-      data: {
-        tenant: abc.id,
-        title: 'ABC Home',
-        richText: [
-          {
-            text: 'Hello, ABC!',
-          },
-        ],
-      },
-    }),
-    await payload.create({
-      collection: 'pages',
-      data: {
-        title: 'BBC Home',
-        tenant: bbc.id,
-        richText: [
-          {
-            text: 'Hello, BBC!',
-          },
-        ],
-      },
-    }),
-  ])
+  // await Promise.all([
+  //   await payload.create({
+  //     collection: 'pages',
+  //     data: {
+  //       tenant: abc.id,
+  //       title: 'ABC Home',
+  //       richText: [
+  //         {
+  //           text: 'Hello, ABC!',
+  //         },
+  //       ],
+  //     },
+  //   }),
+  //   await payload.create({
+  //     collection: 'pages',
+  //     data: {
+  //       title: 'BBC Home',
+  //       tenant: bbc.id,
+  //       richText: [
+  //         {
+  //           text: 'Hello, BBC!',
+  //         },
+  //       ],
+  //     },
+  //   }),
+  // ])
+
+
+  // await payload.create({
+  //   collection: 'pages',
+  //   data: {
+  //     title: 'BBC Home',
+  //     publishedAt: new Date().toISOString(),
+  //     hero: {
+  //       type: 'highImpact',
+  //       richText: [
+  //         {
+  //           text: 'Welcome to BBC Home!',
+  //         },
+  //       ],
+  //       links: [
+  //         {
+  //           link: {
+  //             type: 'custom',
+  //             newTab: true,
+  //             url: 'https://www.bbc.com',
+  //             label: 'Visit BBC',
+  //             appearance: 'primary',
+  //           },
+  //         },
+  //       ],
+  //       media: 'some-media-id', // Assuming 'some-media-id' is a valid media ID in your database
+  //     },
+  //     layout: [
+  //       {
+  //         invertBackground: false,
+  //         richText: [
+  //           {
+  //             text: 'This is a CTA block with some rich text content.',
+  //           },
+  //         ],
+  //         links: [
+  //           {
+  //             link: {
+  //               type: 'reference',
+  //               newTab: false,
+  //               reference: {
+  //                 relationTo: 'pages',
+  //                 value: 'some-page-id', // Assuming 'some-page-id' is a valid page ID in your database
+  //               },
+  //               label: 'Learn More',
+  //               appearance: 'secondary',
+  //             },
+  //           },
+  //         ],
+  //         blockType: 'cta',
+  //       },
+  //       {
+  //         invertBackground: true,
+  //         columns: [
+  //           {
+  //             size: 'half',
+  //             richText: [
+  //               {
+  //                 text: 'Column 1 content',
+  //               },
+  //             ],
+  //             enableLink: true,
+  //             link: {
+  //               type: 'custom',
+  //               newTab: false,
+  //               url: 'https://example.com',
+  //               label: 'Example Link',
+  //               appearance: 'default',
+  //             },
+  //           },
+  //           {
+  //             size: 'half',
+  //             richText: [
+  //               {
+  //                 text: 'Column 2 content',
+  //               },
+  //             ],
+  //             enableLink: true,
+  //             link: {
+  //               type: 'reference',
+  //               newTab: false,
+  //               reference: {
+  //                 relationTo: 'pages',
+  //                 value: 'another-page-id', // Assuming 'another-page-id' is a valid page ID in your database
+  //               },
+  //               label: 'Another Page',
+  //               appearance: 'primary',
+  //             },
+  //           },
+  //         ],
+  //         blockType: 'content',
+  //       },
+  //       {
+  //         invertBackground: false,
+  //         position: 'fullscreen',
+  //         media: 'another-media-id', // Assuming 'another-media-id' is a valid media ID in your database
+  //         blockType: 'mediaBlock',
+  //       },
+  //       {
+  //         introContent: [
+  //           {
+  //             text: 'Introducing our latest projects and posts.',
+  //           },
+  //         ],
+  //         populateBy: 'collection',
+  //         relationTo: 'posts',
+  //         categories: ['category-id-1', 'category-id-2'], // Assuming these are valid category IDs
+  //         limit: 5,
+  //         blockType: 'archive',
+  //       },
+  //     ],
+  //     tenant: 'bbc-tenant-id', // Assuming 'bbc-tenant-id' is a valid tenant ID
+  //     richText: [
+  //       {
+  //         text: 'Hello, BBC!',
+  //       },
+  //     ],
+  //     slug: 'bbc-home',
+  //     updatedAt: new Date().toISOString(),
+  //     createdAt: new Date().toISOString(),
+  //   },
+  // });
+
 }

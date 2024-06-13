@@ -15,6 +15,7 @@ export interface Config {
     categories: Category;
     media: Media;
     projects: Project;
+    'newsletter-signups': NewsletterSignup;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -591,6 +592,13 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+export interface NewsletterSignup {
+  id: string;
+  name?: string | null;
+  email: string;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface PayloadPreference {
   id: string;

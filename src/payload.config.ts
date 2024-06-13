@@ -20,9 +20,12 @@ import { Projects } from './collections/Projects'
 import { Settings } from './globals/Settings'
 import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
+import Newsletter from './collections/Newsletter'
+
+const mockModulePath = path.resolve(__dirname, './emptyModule.js')
 
 export default buildConfig({
-  collections: [Users, Tenants, Pages, Posts, Categories, Media, Projects],
+  collections: [Users, Tenants, Pages, Posts, Categories, Media, Projects, Newsletter],
   globals: [Settings, Header, Footer],
   admin: {
     bundler: webpackBundler(),
@@ -30,10 +33,28 @@ export default buildConfig({
       ...config,
       resolve: {
         ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          dotenv: path.resolve(__dirname, './dotenv.js'),
-        },
+        // alias: {
+        //   ...config.resolve.alias,
+        //   dotenv: path.resolve(__dirname, './dotenv.js'),
+        // },
+        alias: [
+          'fs',
+          'handlebars',
+          'inline-css',
+          path.resolve(__dirname, './email/transport'),
+          path.resolve(__dirname, './email/generateEmailHTML'),
+          path.resolve(__dirname, './email/generateForgotPasswordEmail'),
+          path.resolve(__dirname, './email/generateVerificationEmail'),
+        ].reduce(
+          (aliases, importPath) => ({
+            ...aliases,
+            [importPath]: mockModulePath,
+          }),
+          {
+            ...config.resolve.alias,
+            dotenv: path.resolve(__dirname, './dotenv.js'),
+          }
+        ),
       },
     }),
   },
